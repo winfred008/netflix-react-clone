@@ -10,19 +10,19 @@ pipeline {
                 sh 'npm install'
             }
         }
-       // stage('build Docker Image') {
-            //steps {
-               // script {
-                    // build image
-                    //docker.build("335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app:v1.0.0.RELEASE")
-               // }
-          //  }
-       // }
-        //stage('Trivy Scan (Aqua)') {
-           // steps {
-               // sh 'trivy image --format template --output trivy_report.html 335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app:v1.0.0.RELEASE'
-           // }
-      // }
+       stage('build Docker Image') {
+            steps {
+                script {
+                     build image
+                    docker.build("335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app:v1.0.0.RELEASE")
+               }
+            }
+        }
+        stage('Trivy Scan (Aqua)') {
+            steps {
+                sh 'trivy image --format template --output trivy_report.html 335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app:v1.0.0.RELEASE'
+            }
+       }
         stage('Push to ECR') {
             steps {
                 script{

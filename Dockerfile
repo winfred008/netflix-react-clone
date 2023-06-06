@@ -3,7 +3,7 @@
 # 2) nginx stage to serve frontend assets
 
 # Name the node stage "builder"
-FROM node:lts-buster-slim AS builder
+FROM node:lts-alpine3.17 AS builder
 # Set working directory
 WORKDIR /app
 # Copy all files from current directory to working dir in image

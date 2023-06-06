@@ -4,22 +4,18 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws --version
       - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 335871625378.dkr.ecr.eu-west-2.amazonaws.com
-      - REPOSITORY_URI=335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app 
+      - IMAGE_REPO_NAME=335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app
       - IMAGE_TAG=dev-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image...
-      - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
+      - echo Building the Docker image...          
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG 335871625378.dkr.ecr.eu-west-2.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
   post_build:
     commands:
       - echo Build completed on `date`
-      - echo Pushing the Docker images...
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Writing image definitions file...
-      - printf '[{"name":"netflix-app","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
-      - cat imagedefinitions.json 
-artifacts:
-    files: imagedefinitions.json
+      - echo Pushing the Docker image...
+      - docker push 335871625378.dkr.ecr.eu-west-2.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+

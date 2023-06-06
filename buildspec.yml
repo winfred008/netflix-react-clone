@@ -7,7 +7,6 @@ phases:
       - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 335871625378.dkr.ecr.eu-west-2.amazonaws.com
       - IMAGE_REPO_NAME=335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app
       - IMAGE_TAG=latest
-      //dev-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
   build:
     commands:
       - echo Build started on `date`

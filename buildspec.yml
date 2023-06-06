@@ -6,7 +6,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 335871625378.dkr.ecr.eu-west-2.amazonaws.com
       - IMAGE_REPO_NAME=335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app
-      - IMAGE_TAG=latest
+      - IMAGE_TAG=v1.1.0.RELEASE
   build:
     commands:
       - echo Build started on `date`
@@ -18,4 +18,9 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $IMAGE_REPO_NAME:$IMAGE_TAG
+       - echo Writing image definitions file...
+      - printf '[{"name":"netflix-app","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - cat imagedefinitions.json 
+artifacts:
+    files: imagedefinitions.json
 

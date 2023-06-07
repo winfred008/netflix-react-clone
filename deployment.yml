@@ -23,7 +23,7 @@ spec:
     spec: # Pod spec
       containers:
       - name: amazon-container
-        image: 335871625378.dkr.ecr.eu-west-2.amazonaws.com/netflix-app:latest
+        image: ooghenekaro/amazon:latest
         ports:
         - containerPort: 3000
         

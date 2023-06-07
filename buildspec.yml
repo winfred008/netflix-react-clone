@@ -35,5 +35,4 @@ phases:
       - docker push $IMAGE_REPO_NAME:$IMAGE_TAG
       - echo Push the latest image to cluster
       - kubectl apply -f deployment.yml
-      - kubectl rollout restart -f deployment.yml
 

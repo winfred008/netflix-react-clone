@@ -1,7 +1,7 @@
 version: 0.2
 
 phases:
-  stall:
+  install:
     commands:
       - echo Installing app dependencies...
       - curl -LO https://dl.k8s.io/release/v1.27.2/bin/linux/amd64/kubectl   
